@@ -3,648 +3,786 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automate AI — Documento Cliente</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>Onboarding — Automate.AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --bg3: #16161f;
-    --border: rgba(255,255,255,0.07);
-    --accent: #7c5cfc;
-    --accent2: #c084fc;
-    --green: #22d3a0;
-    --yellow: #f59e0b;
-    --red: #f87171;
-    --text: #f0f0f8;
-    --text2: #a0a0b8;
-    --text3: #5a5a7a;
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+:root {
+  --bg: #f7f9fc;
+  --surface: #ffffff;
+  --surface2: #f0f5ff;
+  --border: rgba(0,0,0,0.07);
+  --border2: rgba(0,0,0,0.12);
+  --text: #111827;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --blue: #4f7ef8;
+  --blue-light: #eef3ff;
+  --blue-mid: #dbe8ff;
+  --green: #10b981;
+  --green-light: #ecfdf5;
+  --amber: #f59e0b;
+  --amber-light: #fffbeb;
+  --rose: #f43f5e;
+  --rose-light: #fff0f3;
+  --violet: #8b5cf6;
+  --violet-light: #f3eeff;
+  --teal: #14b8a6;
+  --teal-light: #e6faf8;
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:16px; -webkit-font-smoothing:antialiased; }
 
-  /* NAV */
-  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 24px; }
-  .nav-inner { max-width: 780px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .nav-links { display: flex; gap: 8px; }
-  .nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; }
-  .nav-links a:hover { color: var(--text); background: var(--bg3); }
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: radial-gradient(circle, rgba(79,126,248,0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events:none; z-index:0;
+}
 
-  /* HERO */
-  .hero { padding: 80px 0 60px; text-align: center; position: relative; }
-  .hero::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(124,92,252,0.12) 0%, transparent 70%); pointer-events: none; }
-  .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.25); color: var(--accent2); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 28px; }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 58px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
-  .hero h1 span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero p { color: var(--text2); font-size: 18px; max-width: 520px; margin: 0 auto; font-weight: 300; }
+.wrap { max-width:780px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
 
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
+/* NAV */
+nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(247,249,252,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 24px;
+}
+.nav-inner { max-width:780px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { font-weight:800; font-size:17px; color:var(--blue); letter-spacing:-.02em; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; transition:all .18s; }
+.nav-links a:hover { color:var(--blue); background:var(--blue-light); }
 
-  /* SECTION */
-  section { padding: 64px 0; }
-  .sec-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
-  .sec-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
-  .sec-desc { color: var(--text2); font-size: 16px; font-weight: 300; margin-bottom: 40px; max-width: 540px; }
+/* HERO */
+.hero { padding:72px 0 56px; text-align:center; }
+.eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--blue-light); color:var(--blue);
+  border-radius:100px; padding:6px 16px;
+  font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  margin-bottom:24px;
+}
+.eyebrow::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--blue); animation:blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
 
-  /* CARDS */
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 16px; transition: border-color 0.2s; }
-  .card:hover { border-color: rgba(124,92,252,0.2); }
-  .card-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-  .card-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .icon-purple { background: rgba(124,92,252,0.15); }
-  .icon-green { background: rgba(34,211,160,0.12); }
-  .icon-yellow { background: rgba(245,158,11,0.12); }
-  .icon-red { background: rgba(248,113,113,0.1); }
+.hero h1 { font-size:clamp(34px,5vw,52px); font-weight:800; line-height:1.1; letter-spacing:-.03em; margin-bottom:16px; }
+.hero h1 em { font-style:normal; font-family:'Instrument Serif',serif; color:var(--blue); }
+.hero-desc { color:var(--text2); font-size:17px; max-width:500px; margin:0 auto 40px; line-height:1.65; }
 
-  /* STEPS */
-  .steps { display: flex; flex-direction: column; gap: 0; }
-  .step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
-  .step:last-child { border-bottom: none; }
-  .step-num { width: 34px; height: 34px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; flex-shrink: 0; color: #fff; }
-  .step-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 5px; }
-  .step-desc { color: var(--text2); font-size: 14px; font-weight: 300; }
+/* STEP PILLS NAV */
+.step-pills { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.step-pill {
+  display:flex; align-items:center; gap:8px;
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:100px; padding:8px 16px;
+  font-size:13px; font-weight:600; color:var(--text2);
+  text-decoration:none; transition:all .2s;
+}
+.step-pill:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-light); }
+.step-num { width:22px; height:22px; border-radius:50%; background:var(--blue); color:white; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
 
-  /* CODE BLOCK */
-  .code-block { background: #0d0d14; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 20px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 13px; color: #a8d8a8; overflow-x: auto; line-height: 1.8; }
-  .code-comment { color: var(--text3); }
-  .code-key { color: #c084fc; }
-  .code-val { color: #7dd3fc; }
+/* SECTIONS */
+section { padding:72px 0; }
+section + section { border-top:1px solid var(--border); }
 
-  /* ALERT */
-  .alert { border-radius: var(--radius-sm); padding: 16px 20px; margin: 16px 0; display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.6; }
-  .alert-warning { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: #fcd34d; }
-  .alert-info { background: rgba(124,92,252,0.08); border: 1px solid rgba(124,92,252,0.2); color: var(--accent2); }
-  .alert-success { background: rgba(34,211,160,0.08); border: 1px solid rgba(34,211,160,0.2); color: var(--green); }
-  .alert span { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.section-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text3); margin-bottom:10px; }
+.section-eyebrow::before { content:''; display:block; width:20px; height:2px; border-radius:2px; background:var(--blue); }
 
-  /* TIMELINE */
-  .timeline { display: flex; flex-direction: column; }
-  .tl-item { display: grid; grid-template-columns: 100px 1px 1fr; gap: 0 24px; }
-  .tl-time { text-align: right; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 22px; }
-  .tl-line { display: flex; flex-direction: column; align-items: center; }
-  .tl-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); flex-shrink: 0; margin-top: 22px; position: relative; z-index: 1; }
-  .tl-dot.active { background: var(--accent); box-shadow: 0 0 16px rgba(124,92,252,0.5); }
-  .tl-connector { flex: 1; width: 1px; background: var(--border); margin-top: 4px; }
-  .tl-item:last-child .tl-connector { display: none; }
-  .tl-body { padding: 16px 0 32px; }
-  .tl-phase { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .tl-detail { color: var(--text2); font-size: 13px; font-weight: 300; }
-  .tl-tag { display: inline-block; background: rgba(124,92,252,0.1); color: var(--accent2); font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 100px; margin-top: 8px; letter-spacing: 0.04em; }
+h2 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-.03em; line-height:1.15; margin-bottom:12px; }
+h2 em { font-style:normal; color:var(--blue); }
+.sec-intro { color:var(--text2); font-size:16px; margin-bottom:40px; max-width:540px; line-height:1.6; }
 
-  /* CONTRATTO */
-  .contract-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .contract-header { background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(192,132,252,0.08)); border-bottom: 1px solid var(--border); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .contract-header h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
-  .date-badge { background: rgba(34,211,160,0.1); border: 1px solid rgba(34,211,160,0.2); color: var(--green); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; }
-  .contract-body { padding: 32px; }
-  .clause { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-  .clause:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .clause-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
-  .clause h4 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-  .clause p, .clause li { color: var(--text2); font-size: 14px; font-weight: 300; line-height: 1.8; }
-  .clause ul { padding-left: 18px; }
-  .clause li { margin-bottom: 4px; }
-  .signature-area { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
-  .sig-box { background: var(--bg3); border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 20px; text-align: center; }
-  .sig-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 40px; }
-  .sig-line { border-top: 1px solid var(--border); padding-top: 10px; font-size: 12px; color: var(--text3); }
+/* CARDS */
+.card {
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--radius); padding:24px 28px;
+  margin-bottom:14px; box-shadow:var(--shadow);
+  transition:all .22s;
+}
+.card:hover { box-shadow:var(--shadow-md); border-color:rgba(79,126,248,.2); transform:translateY(-1px); }
 
-  /* FORM */
-  .form-section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; }
-  .form-group { margin-bottom: 20px; }
-  .form-label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text2); margin-bottom: 8px; }
-  .form-label .req { color: var(--accent); margin-left: 3px; }
-  .finput { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 14px 18px; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-  .finput:focus { border-color: rgba(124,92,252,0.5); box-shadow: 0 0 0 3px rgba(124,92,252,0.08); }
-  .finput::placeholder { color: var(--text3); }
-  textarea.finput { resize: vertical; min-height: 110px; line-height: 1.6; }
-  select.finput option { background: var(--bg3); color: var(--text); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .checkbox-group { display: flex; flex-direction: column; gap: 14px; }
-  .checkbox-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 14px; color: var(--text2); line-height: 1.6; }
-  .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--accent); }
-  .privacy-notice { background: rgba(124,92,252,0.06); border: 1px solid rgba(124,92,252,0.15); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 24px; font-size: 13px; color: var(--text2); line-height: 1.7; }
-  .privacy-notice strong { color: var(--text); }
-  .btn-fill { display: block; width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border: none; padding: 16px; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
-  .btn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,92,252,0.35); }
+/* ACCORDION */
+.accordion { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:12px; box-shadow:var(--shadow); overflow:hidden; transition:border-color .2s; }
+.accordion:hover { border-color:rgba(79,126,248,.25); }
+.accordion.open { border-color:rgba(79,126,248,.3); }
 
-  footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-  footer p { color: var(--text3); font-size: 13px; }
-  footer strong { color: var(--text2); }
+.acc-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px; cursor:pointer; user-select:none;
+  transition:background .18s;
+}
+.acc-head:hover { background:var(--surface2); }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .hero > * { animation: fadeUp 0.6s ease both; }
-  .hero .badge { animation-delay: 0s; }
-  .hero h1 { animation-delay: 0.1s; }
-  .hero p { animation-delay: 0.2s; }
+.acc-title { font-weight:700; font-size:16px; display:flex; align-items:center; gap:12px; }
+.acc-icon { width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.acc-arrow { font-size:11px; color:var(--text3); transition:transform .3s; }
+.accordion.open .acc-arrow { transform:rotate(180deg); }
 
-  @media (max-width: 600px) {
-    .form-row { grid-template-columns: 1fr; }
-    .signature-area { grid-template-columns: 1fr; }
-    .tl-item { grid-template-columns: 60px 1px 1fr; gap: 0 14px; }
-    .tl-time { font-size: 9px; }
-    .nav-links { display: none; }
-    .card { padding: 20px; }
-    .contract-body { padding: 20px; }
-    .form-section { padding: 24px; }
-  }
+.acc-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+.accordion.open .acc-body { max-height:1200px; }
+.acc-content { padding:0 24px 24px; border-top:1px solid var(--border); padding-top:20px; }
+.acc-content p { color:var(--text2); font-size:15px; margin-bottom:10px; line-height:1.6; }
+.acc-content p:last-child { margin-bottom:0; }
+
+/* STEPS inside accordion */
+.guide-steps { display:flex; flex-direction:column; gap:0; margin:16px 0; }
+.guide-step { display:flex; gap:16px; }
+.g-track { display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:34px; }
+.g-dot { width:34px; height:34px; border-radius:10px; background:var(--blue-light); color:var(--blue); display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:13px; flex-shrink:0; }
+.g-line { width:2px; flex:1; min-height:16px; background:var(--blue-mid); margin:4px 0; border-radius:2px; opacity:.5; }
+.g-body { flex:1; padding-bottom:20px; padding-top:4px; }
+.g-body h4 { font-size:15px; font-weight:700; margin-bottom:4px; color:var(--text); }
+.g-body p { font-size:14px; color:var(--text2); line-height:1.55; }
+
+/* CODE */
+.code-box {
+  background:#1e2130; color:#a5d6ff;
+  border-radius:10px; padding:14px 18px;
+  font-family:'SF Mono','Fira Code',monospace; font-size:13px;
+  letter-spacing:.01em; line-height:1.6; margin:12px 0;
+  overflow-x:auto;
+}
+
+/* INFO / WARN BOXES */
+.info-box { background:var(--blue-light); border:1.5px solid var(--blue-mid); border-radius:12px; padding:14px 18px; display:flex; gap:12px; margin:14px 0; }
+.info-box .icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.info-box p { font-size:14px; color:#1e40af; margin:0; line-height:1.55; }
+
+.warn-box { background:var(--amber-light); border:1.5px solid rgba(245,158,11,.25); border-radius:12px; padding:14px 18px; display:flex; gap:12px; margin:14px 0; }
+.warn-box p { font-size:14px; color:#92400e; margin:0; line-height:1.55; }
+
+/* PRIVACY GRID */
+.privacy-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px; }
+@media(max-width:560px){ .privacy-grid{grid-template-columns:1fr;} }
+.p-card { background:var(--surface); border:1.5px solid var(--border); border-radius:14px; padding:18px 20px; transition:all .2s; }
+.p-card:hover { border-color:rgba(79,126,248,.25); box-shadow:var(--shadow); }
+.p-card h4 { font-size:13px; font-weight:700; color:var(--blue); margin-bottom:6px; letter-spacing:.02em; }
+.p-card p { font-size:13px; color:var(--text2); line-height:1.55; }
+
+/* CONTRACT */
+.contract {
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:var(--radius); padding:36px 40px;
+  box-shadow:var(--shadow-md);
+}
+@media(max-width:600px){ .contract{padding:24px 20px;} }
+
+.contract-top { text-align:center; margin-bottom:32px; }
+.contract-top h3 { font-size:22px; font-weight:800; letter-spacing:-.02em; margin-bottom:6px; }
+.contract-top .sub { font-size:13px; color:var(--text3); font-weight:500; }
+
+.contract-parties { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0 28px; }
+@media(max-width:560px){ .contract-parties{grid-template-columns:1fr;} }
+.party { background:var(--surface2); border:1.5px solid var(--blue-mid); border-radius:12px; padding:16px 18px; }
+.party-label { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:.08em; text-transform:uppercase; margin-bottom:5px; }
+.party-name { font-size:16px; font-weight:800; color:var(--text); margin-bottom:3px; }
+.party-detail { font-size:13px; color:var(--text2); line-height:1.5; }
+
+.clause-title { font-size:11px; font-weight:800; color:var(--blue); letter-spacing:.1em; text-transform:uppercase; margin:24px 0 8px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.contract p { font-size:14px; color:var(--text2); margin-bottom:8px; line-height:1.65; }
+.contract ul { padding-left:20px; font-size:14px; color:var(--text2); margin-bottom:8px; }
+.contract ul li { margin-bottom:4px; line-height:1.6; }
+
+.sig-row { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; }
+@media(max-width:560px){ .sig-row{grid-template-columns:1fr;} }
+.sig-field { border-top:2px solid var(--border); padding-top:12px; }
+.sig-label { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.sig-value { font-size:14px; color:var(--text2); }
+
+/* TIMELINE */
+.timeline-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin:28px 0; }
+@media(max-width:640px){ .timeline-grid{grid-template-columns:1fr;} }
+
+.tl-day {
+  background:var(--surface); border:1.5px solid var(--border);
+  border-radius:14px; padding:16px 10px; text-align:center;
+  position:relative; overflow:hidden; transition:all .2s;
+}
+.tl-day:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.tl-day::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:2px 2px 0 0; }
+.phase-1::before { background:var(--blue); }
+.phase-2::before { background:var(--violet); }
+.phase-3::before { background:var(--teal); }
+.phase-1 { background:#f8faff; border-color:rgba(79,126,248,.2); }
+.phase-2 { background:#faf8ff; border-color:rgba(139,92,246,.2); }
+.phase-3 { background:#f8fffe; border-color:rgba(20,184,166,.2); }
+
+.tl-num { font-size:10px; font-weight:700; color:var(--text3); margin-bottom:6px; letter-spacing:.05em; }
+.tl-ico { font-size:22px; margin-bottom:6px; }
+.tl-lbl { font-size:11px; color:var(--text2); font-weight:600; line-height:1.35; }
+
+.tl-legend { display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+.legend-item { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--text2); font-weight:500; }
+.legend-dot { width:10px; height:10px; border-radius:3px; }
+
+/* DATA TABLE */
+.data-table { width:100%; border-collapse:collapse; font-size:14px; margin:16px 0; }
+.data-table th { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:.07em; text-transform:uppercase; padding:10px 14px; text-align:left; border-bottom:1.5px solid var(--border); }
+.data-table td { padding:11px 14px; color:var(--text2); border-bottom:1px solid var(--border); }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td:first-child { color:var(--text); font-weight:600; }
+
+/* FORM */
+.form-wrap { display:flex; flex-direction:column; gap:20px; }
+.form-group { display:flex; flex-direction:column; gap:7px; }
+.form-label { font-size:12px; font-weight:700; color:var(--text2); letter-spacing:.05em; text-transform:uppercase; }
+.form-label span { color:var(--blue); }
+.finput {
+  background:var(--surface); border:1.5px solid var(--border2);
+  border-radius:11px; padding:13px 16px;
+  color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:15px;
+  outline:none; transition:all .18s; width:100%;
+}
+.finput:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(79,126,248,.1); }
+.finput::placeholder { color:var(--text3); }
+textarea.finput { resize:vertical; min-height:110px; line-height:1.6; }
+select.finput { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+select.finput option { background:white; }
+
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:560px){ .form-row{grid-template-columns:1fr;} }
+
+/* CHECKBOXES */
+.check-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+@media(max-width:480px){ .check-grid{grid-template-columns:1fr;} }
+.check-item { display:flex; align-items:center; gap:10px; background:var(--surface); border:1.5px solid var(--border2); border-radius:10px; padding:11px 14px; cursor:pointer; transition:all .18s; }
+.check-item:hover { border-color:var(--blue); background:var(--blue-light); }
+.check-item input[type=checkbox] { appearance:none; width:17px; height:17px; border:1.5px solid #d1d5db; border-radius:5px; flex-shrink:0; cursor:pointer; position:relative; transition:all .18s; }
+.check-item input[type=checkbox]:checked { background:var(--blue); border-color:var(--blue); }
+.check-item input[type=checkbox]:checked::after { content:'✓'; position:absolute; top:-1px; left:2px; font-size:11px; color:white; font-weight:700; }
+.check-label { font-size:14px; color:var(--text2); font-weight:500; }
+
+/* DIVIDER */
+.divider { display:flex; align-items:center; gap:14px; margin:32px 0 24px; }
+.divider-line { flex:1; height:1px; background:var(--border); }
+.divider-text { font-size:11px; font-weight:700; color:var(--text3); letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; }
+
+/* CONSENT */
+.consent-box { background:var(--surface2); border:1.5px solid var(--blue-mid); border-radius:14px; padding:6px 20px; }
+.consent-item { display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px solid rgba(79,126,248,.1); }
+.consent-item:last-child { border-bottom:none; padding-bottom:0; }
+.consent-item:first-child { padding-top:10px; }
+.consent-item input[type=checkbox] { appearance:none; width:18px; height:18px; border:1.5px solid rgba(79,126,248,.4); border-radius:5px; flex-shrink:0; cursor:pointer; position:relative; margin-top:2px; transition:all .18s; }
+.consent-item input[type=checkbox]:checked { background:var(--blue); border-color:var(--blue); }
+.consent-item input[type=checkbox]:checked::after { content:'✓'; position:absolute; top:-1px; left:2px; font-size:12px; color:white; font-weight:700; }
+.consent-text { font-size:14px; color:var(--text2); line-height:1.55; }
+.consent-text strong { color:var(--text); font-weight:600; }
+
+/* SUBMIT BTN */
+.btn-submit {
+  width:100%; padding:16px;
+  background:var(--blue); color:white; border:none;
+  border-radius:13px; font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  transition:all .2s; letter-spacing:-.01em;
+}
+.btn-submit:hover { background:#3d6ef0; transform:translateY(-2px); box-shadow:0 8px 32px rgba(79,126,248,.3); }
+.btn-submit:active { transform:translateY(0); }
+
+/* SECTION ALT BG */
+.sec-alt { background:white; }
+.sec-alt2 { background:var(--surface2); }
+
+/* FOOTER */
+footer { padding:40px 0; border-top:1px solid var(--border); }
+.footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-brand { font-weight:800; color:var(--blue); font-size:15px; }
+.footer-note { font-size:13px; color:var(--text3); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(16px); transition:opacity .55s ease,transform .55s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:600px) { .nav-links{display:none;} section{padding:52px 0;} h2{font-size:28px;} }
+
+@media print {
+  body::before{display:none}
+  nav{position:static}
+  .accordion.open .acc-body{max-height:none}
+  section{padding:32px 0}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">Automate AI</div>
-    <div class="nav-links">
+    <div class="nav-logo">Automate.AI</div>
+    <nav class="nav-links">
       <a href="#istruzioni">Istruzioni</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#contratto">Contratto</a>
       <a href="#timeline">Timeline</a>
-      <a href="#contratto">Accordo</a>
-      <a href="#form">Il tuo progetto</a>
-    </div>
+      <a href="#form">Esigenze</a>
+    </nav>
   </div>
 </nav>
 
-<div class="wrap">
-  <div class="hero">
-    <div class="badge">📄 Documento riservato cliente</div>
-    <h1>Iniziamo a<br><span>lavorare insieme</span></h1>
-    <p>Questo documento ti guida su cosa mi serve per avviare il tuo progetto di automazione. Compila tutto in fondo quando sei pronto.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Documento riservato · Solo per te</div>
+    <h1>Benvenuto nel tuo<br><em>percorso di onboarding</em></h1>
+    <p class="hero-desc">Segui i 5 passaggi in ordine, compila il modulo finale e il tuo sistema sarà operativo in 7 giorni.</p>
+    <div class="step-pills">
+      <a href="#istruzioni" class="step-pill"><span class="step-num">1</span>Istruzioni tecniche</a>
+      <a href="#privacy" class="step-pill"><span class="step-num">2</span>Privacy & dati</a>
+      <a href="#contratto" class="step-pill"><span class="step-num">3</span>Contratto</a>
+      <a href="#timeline" class="step-pill"><span class="step-num">4</span>Timeline</a>
+      <a href="#form" class="step-pill"><span class="step-num">5</span>Le tue esigenze</a>
+    </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- ISTRUZIONI -->
-<section id="istruzioni">
+<section id="istruzioni" class="sec-alt">
   <div class="wrap">
-    <div class="sec-label">Cosa mi serve</div>
-    <div class="sec-title">Istruzioni tecniche</div>
-    <div class="sec-desc">Per costruire le tue automazioni ho bisogno di accesso ad alcuni servizi. Ecco come configurarli in sicurezza — niente password principale, mai.</div>
+    <div class="section-eyebrow">Step 01</div>
+    <h2>Istruzioni <em>tecniche</em></h2>
+    <p class="sec-intro">Per attivare il sistema ho bisogno di alcuni accessi. Guida passo-passo per crearli in sicurezza — nessuna password diretta, solo chiavi dedicate e revocabili.</p>
 
-    <div class="card">
-      <div class="card-title"><div class="card-icon icon-red">📧</div>Gmail — Password per app</div>
-      <p style="color:var(--text2);font-size:14px;margin-bottom:18px;">Non ti chiedo la password del tuo account Google. Gmail permette di creare una <strong style="color:var(--text)">password dedicata per app</strong>, revocabile in qualsiasi momento senza toccare la tua password normale.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div>
-            <div class="step-title">Attiva la verifica in due passaggi</div>
-            <div class="step-desc">Vai su <strong>myaccount.google.com → Sicurezza</strong> e verifica che la verifica a 2 passaggi sia attiva. È un prerequisito obbligatorio.</div>
-          </div>
+    <!-- GMAIL -->
+    <div class="accordion open reveal" onclick="toggleAcc(this)">
+      <div class="acc-head">
+        <div class="acc-title">
+          <div class="acc-icon" style="background:#fce4ec">📧</div>
+          Gmail — App Password
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div>
-            <div class="step-title">Vai su "Password per le app"</div>
-            <div class="step-desc">Cerca "Password per le app" nella barra di ricerca del tuo account Google o accedi direttamente a <strong>myaccount.google.com/apppasswords</strong></div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div>
-            <div class="step-title">Crea la password</div>
-            <div class="step-desc">Seleziona "Altra app (nome personalizzato)", scrivi <strong>Automate AI</strong> e clicca Genera. Ottieni una password di 16 caratteri.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div>
-            <div class="step-title">Inviamela nel form qui sotto</div>
-            <div class="step-desc">Copia e incolla la password nel campo dedicato in fondo a questa pagina. Non inviarla via email, WhatsApp o altri canali.</div>
-          </div>
-        </div>
+        <span class="acc-arrow">▼</span>
       </div>
-      <div class="alert alert-warning">
-        <span>⚠️</span>
-        <div>Questa password dà accesso <strong>solo a Gmail</strong>, non al tuo account Google. Puoi revocarla in qualsiasi momento dallo stesso pannello "Password per le app".</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><div class="card-icon icon-green">📅</div>Google Calendar — Condivisione calendario</div>
-      <p style="color:var(--text2);font-size:14px;margin-bottom:18px;">Per il calendario non serve nessuna password. Basta condividere il tuo calendario con un indirizzo di servizio dedicato, con permessi di sola lettura.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div>
-            <div class="step-title">Apri Google Calendar</div>
-            <div class="step-desc">Vai su <strong>calendar.google.com</strong> → clicca i tre puntini accanto al calendario da collegare → "Impostazioni e condivisione"</div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="info-box">
+            <span class="icon">ℹ️</span>
+            <p>Non ti chiedo la tua password Gmail. Ti chiedo un'<strong>App Password</strong>: una chiave separata, revocabile in qualsiasi momento, che funziona solo per questo sistema.</p>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div>
-            <div class="step-title">Aggiungi l'indirizzo che ti fornirò</div>
-            <div class="step-desc">Nella sezione "Condividi con persone specifiche" clicca "+ Aggiungi persone" e inserisci l'indirizzo che ti manderò via email.</div>
+          <div class="guide-steps">
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">1</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Attiva la verifica in 2 passaggi</h4><p>Vai su <strong>myaccount.google.com</strong> → Sicurezza → Verifica in due passaggi → Attiva. Senza questo non puoi creare App Password.</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">2</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Crea l'App Password</h4><p>Sempre in Sicurezza, cerca <strong>"Password per le app"</strong>. Seleziona "Altra app" → scrivi "Automate AI" → clicca Genera.</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">3</div></div>
+              <div class="g-body"><h4>Copia la password generata</h4><p>Google ti mostrerà 16 caratteri tipo:</p>
+              <div class="code-box">xxxx xxxx xxxx xxxx</div>
+              <p>Copiala e incollala nel form in fondo a questa pagina.</p></div>
+            </div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div>
-            <div class="step-title">Imposta permessi di lettura</div>
-            <div class="step-desc">Seleziona <strong>"Visualizza tutti i dettagli degli eventi"</strong>. Non è necessario nessun permesso di modifica o gestione.</div>
+          <div class="warn-box">
+            <span class="icon" style="font-size:17px;flex-shrink:0">⚠️</span>
+            <p>Puoi <strong>revocare questa password</strong> in qualsiasi momento dalle impostazioni Google, senza cambiare la tua password principale.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title"><div class="card-icon icon-yellow">🔑</div>Altri servizi (se applicabili)</div>
-      <p style="color:var(--text2);font-size:14px;margin-bottom:14px;">A seconda del tuo progetto potrei aver bisogno di accesso ad altri strumenti. Ti comunicherò in anticipo cosa serve e perché — mai a sorpresa.</p>
-      <div class="code-block">
-<span class="code-comment"># Esempi di integrazioni frequenti:</span>
-<span class="code-key">Notion</span>        → <span class="code-val">Integration token (read/write)</span>
-<span class="code-key">Telegram Bot</span>  → <span class="code-val">Token del tuo bot</span>
-<span class="code-key">Airtable</span>      → <span class="code-val">Personal access token</span>
-<span class="code-key">Shopify</span>       → <span class="code-val">Custom app access token</span>
-<span class="code-key">WhatsApp</span>      → <span class="code-val">Business API (se attiva)</span>
-<span class="code-key">Google Sheets</span> → <span class="code-val">Condivisione con service account</span>
+    <!-- NOTION -->
+    <div class="accordion reveal" onclick="toggleAcc(this)">
+      <div class="acc-head">
+        <div class="acc-title">
+          <div class="acc-icon" style="background:#f3e5f5">📋</div>
+          Notion — Integration Token
+        </div>
+        <span class="acc-arrow">▼</span>
       </div>
-      <div class="alert alert-info">
-        <span>ℹ️</span>
-        <div>Non ti chiederò mai username e password del tuo account principale. Uso sempre <strong>token di accesso dedicati</strong> che puoi revocare in qualsiasi momento senza cambiare le tue credenziali.</div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="info-box">
+            <span class="icon">ℹ️</span>
+            <p>Notion viene usato come database per email e calendario. Creeremo un workspace dedicato o useremo il tuo.</p>
+          </div>
+          <div class="guide-steps">
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">1</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Crea un account Notion (se non ce l'hai)</h4><p>Vai su <strong>notion.so</strong> e registrati. È gratuito per uso personale.</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">2</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Crea una Integration</h4><p>Vai su <strong>notion.so/my-integrations</strong> → "New integration" → nome: "Automate AI" → seleziona il workspace → Submit.</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">3</div></div>
+              <div class="g-body"><h4>Copia il token</h4><p>Trovi l'<strong>Internal Integration Token</strong> (inizia con "secret_"). Copialo e incollalo nel form.</p></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title"><div class="card-icon icon-purple">🔒</div>Come proteggo i tuoi dati</div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">✓</div>
-          <div><div class="step-title">Credenziali cifrate</div><div class="step-desc">Tutte le credenziali sono salvate cifrate in variabili d'ambiente protette. Mai in chiaro nel codice o in file leggibili.</div></div>
+    <!-- TELEGRAM -->
+    <div class="accordion reveal" onclick="toggleAcc(this)">
+      <div class="acc-head">
+        <div class="acc-title">
+          <div class="acc-icon" style="background:#e3f2fd">✈️</div>
+          Telegram — Il tuo User ID
         </div>
-        <div class="step">
-          <div class="step-num">✓</div>
-          <div><div class="step-title">Accesso minimo necessario</div><div class="step-desc">Richiedo sempre i permessi minimi indispensabili per il funzionamento dell'automazione. Niente di superfluo.</div></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <div class="guide-steps">
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">1</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Installa Telegram</h4><p>Scaricalo su App Store o Play Store e crea un account.</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">2</div><div class="g-line"></div></div>
+              <div class="g-body"><h4>Trova il tuo User ID</h4><p>Cerca il bot <strong>@userinfobot</strong>, avvialo. Ti risponderà con il tuo ID numerico (es. <span style="font-family:monospace;color:var(--blue)">480442586</span>).</p></div>
+            </div>
+            <div class="guide-step">
+              <div class="g-track"><div class="g-dot">3</div></div>
+              <div class="g-body"><h4>Inseriscilo nel form</h4><p>Incolla il tuo User ID nel modulo in fondo. Serve per autenticarti e ricevere le notifiche solo tu.</p></div>
+            </div>
+          </div>
         </div>
-        <div class="step">
-          <div class="step-num">✓</div>
-          <div><div class="step-title">Revoca immediata</div><div class="step-desc">Puoi revocare qualsiasi accesso in qualsiasi momento, anche senza avvisarmi. Ti fornisco le istruzioni per farlo per ogni servizio.</div></div>
+      </div>
+    </div>
+
+    <!-- ALTRE -->
+    <div class="accordion reveal" onclick="toggleAcc(this)">
+      <div class="acc-head">
+        <div class="acc-title">
+          <div class="acc-icon" style="background:#ecfdf5">🔧</div>
+          Altre integrazioni (opzionali)
         </div>
-        <div class="step">
-          <div class="step-num">✓</div>
-          <div><div class="step-title">Cancellazione post-progetto</div><div class="step-desc">Entro 30 giorni dalla consegna finale elimino tutte le credenziali dai miei sistemi, salvo tuo accordo contrario.</div></div>
+        <span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>A seconda del sistema, potrei aver bisogno di accesso ad altri servizi. Ti guiderò caso per caso.</p>
+          <table class="data-table">
+            <thead><tr><th>Servizio</th><th>Cosa serve</th><th>Dove trovarlo</th></tr></thead>
+            <tbody>
+              <tr><td>Shopify</td><td>API Key privata</td><td>Impostazioni → App → Sviluppatori</td></tr>
+              <tr><td>Airtable</td><td>Personal Access Token</td><td>airtable.com/account → API</td></tr>
+              <tr><td>Google Calendar</td><td>Link calendario condiviso</td><td>Condivisione → link privato</td></tr>
+              <tr><td>WhatsApp Business</td><td>API Token</td><td>Meta Business Suite → Sviluppatori</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- PRIVACY -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="section-eyebrow">Step 02</div>
+    <h2>Privacy & <em>protezione dati</em></h2>
+    <p class="sec-intro">La tua privacy è priorità assoluta. Ecco come vengono gestiti i tuoi dati — in modo trasparente e chiaro.</p>
+
+    <div class="privacy-grid reveal">
+      <div class="p-card">
+        <h4>🔐 Cosa ricevo</h4>
+        <p>Solo le credenziali necessarie per configurare il sistema. Nessuna password principale, mai.</p>
+      </div>
+      <div class="p-card">
+        <h4>🗄️ Dove vengono salvate</h4>
+        <p>Direttamente nel tuo ambiente N8N su Railway — server cloud privato sotto il tuo controllo.</p>
+      </div>
+      <div class="p-card">
+        <h4>🚫 Cosa NON faccio</h4>
+        <p>Non conservo copie delle credenziali. Non accedo ai tuoi dati dopo la consegna. Zero condivisioni con terzi.</p>
+      </div>
+      <div class="p-card">
+        <h4>🗑️ Cancellazione</h4>
+        <p>Puoi revocare qualsiasi accesso in qualsiasi momento. Le App Password Gmail si cancellano in 30 secondi.</p>
+      </div>
+      <div class="p-card">
+        <h4>📍 Dove risiedono i dati</h4>
+        <p>Il sistema gira su Railway (cloud europeo). I dati email archiviati su Notion sono sotto il tuo controllo diretto.</p>
+      </div>
+      <div class="p-card">
+        <h4>⚖️ Base legale (GDPR)</h4>
+        <p>Il trattamento avviene sulla base del contratto di servizio (Art. 6 par. 1 lett. b GDPR). Sei sempre titolare dei tuoi dati.</p>
+      </div>
+    </div>
+
+    <div class="warn-box reveal">
+      <span style="font-size:17px;flex-shrink:0">⚠️</span>
+      <p><strong>Importante:</strong> non inviare mai credenziali via email o messaggi. Usa esclusivamente il form cifrato in fondo a questa pagina (HTTPS) oppure concordiamo una chiamata diretta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRATTO -->
+<section id="contratto" class="sec-alt">
+  <div class="wrap">
+    <div class="section-eyebrow">Step 03</div>
+    <h2>Accordo di <em>collaborazione</em></h2>
+    <p class="sec-intro">Bozza del contratto di servizio — semplice e chiaro, senza linguaggio legale oscuro.</p>
+
+    <div class="contract reveal">
+      <div class="contract-top">
+        <h3>ACCORDO DI SERVIZIO — AUTOMAZIONE AI</h3>
+        <div class="sub">Bozza · Da firmare prima dell'inizio lavori</div>
+      </div>
+
+      <div class="contract-parties">
+        <div class="party">
+          <div class="party-label">Fornitore del servizio</div>
+          <div class="party-name">Alessandro [Cognome]</div>
+          <div class="party-detail">Automate.AI<br>P.IVA: [da completare]<br>Email: [da completare]</div>
+        </div>
+        <div class="party">
+          <div class="party-label">Cliente</div>
+          <div class="party-name">[Nome Cliente]</div>
+          <div class="party-detail">[Azienda]<br>[P.IVA / CF]<br>[Email]</div>
+        </div>
+      </div>
+
+      <div class="clause-title">1. Oggetto del contratto</div>
+      <p>Il Fornitore progetta, sviluppa e consegna un sistema di automazione AI personalizzato come concordato nella scheda "Le tue esigenze" allegata. Il sistema include workflow N8N, integrazione con i servizi indicati e supporto post-consegna per [X] giorni.</p>
+
+      <div class="clause-title">2. Durata e consegna</div>
+      <p>I lavori iniziano entro 2 giorni lavorativi dalla ricezione della caparra. Il sistema viene consegnato entro <strong>7 giorni lavorativi</strong> dall'inizio, salvo imprevisti tecnici comunicati tempestivamente.</p>
+
+      <div class="clause-title">3. Corrispettivo e pagamento</div>
+      <p>Il compenso è pari a <strong>€ [IMPORTO]</strong>. Modalità:</p>
+      <ul>
+        <li>50% alla firma (caparra confirmatoria)</li>
+        <li>50% alla consegna del sistema funzionante</li>
+      </ul>
+      <p>I costi operativi mensili (Railway ~€5-20/mese) sono a carico esclusivo del Cliente.</p>
+
+      <div class="clause-title">4. Proprietà del sistema</div>
+      <p>A saldo completato, il Cliente acquisisce piena proprietà del sistema. Il Fornitore non mantiene accesso dopo la consegna, salvo accordi scritti per manutenzione.</p>
+
+      <div class="clause-title">5. Credenziali e sicurezza</div>
+      <p>Il Fornitore si impegna a:</p>
+      <ul>
+        <li>Non conservare copie delle credenziali dopo la consegna</li>
+        <li>Non accedere ai sistemi del Cliente dopo la consegna</li>
+        <li>Trattare tutte le informazioni ricevute con riservatezza assoluta</li>
+        <li>Segnalare immediatamente qualsiasi anomalia di sicurezza</li>
+      </ul>
+
+      <div class="clause-title">6. Modifiche e revisioni</div>
+      <p>Incluse <strong>2 revisioni</strong> post-consegna entro 14 giorni (aggiustamenti, non nuove funzionalità). Ulteriori modifiche quotate separatamente.</p>
+
+      <div class="clause-title">7. Limitazione di responsabilità</div>
+      <p>Il Fornitore non è responsabile per interruzioni di servizi terzi (Gmail, Notion, Railway, Telegram) o utilizzi non conformi alle istruzioni fornite.</p>
+
+      <div class="clause-title">8. Trattamento dati personali (GDPR)</div>
+      <p>Il Fornitore agisce da <strong>Responsabile del Trattamento</strong> per i soli dati necessari allo sviluppo, sulla base contrattuale (Art. 6(1)(b) GDPR). Nessun trasferimento a terzi. Il Cliente ha diritto di accesso, rettifica e cancellazione in qualsiasi momento.</p>
+
+      <div class="clause-title">9. Recesso</div>
+      <p>In caso di recesso del Cliente dopo l'inizio lavori, la caparra è trattenuta come rimborso. In caso di inadempimento del Fornitore, viene restituito il 100% della caparra.</p>
+
+      <div class="clause-title">10. Foro competente</div>
+      <p>Competente il Foro di [Città del Fornitore]. Le parti si impegnano a risolvere eventuali dispute in via amichevole prima di adire le vie legali.</p>
+
+      <div class="sig-row">
+        <div class="sig-field">
+          <div class="sig-label">Firma del Fornitore</div>
+          <div class="sig-value">Alessandro [Cognome]<br><span style="color:var(--text3);font-size:12px">Data: ___/___/______</span></div>
+        </div>
+        <div class="sig-field">
+          <div class="sig-label">Firma del Cliente</div>
+          <div class="sig-value">[Nome e Cognome]<br><span style="color:var(--text3);font-size:12px">Data: ___/___/______</span></div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top:24px">
+        <span class="icon">📄</span>
+        <p>Questo documento verrà inviato via email in formato PDF firmabile digitalmente prima dell'inizio dei lavori.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- TIMELINE -->
 <section id="timeline">
   <div class="wrap">
-    <div class="sec-label">Come lavoro</div>
-    <div class="sec-title">Timeline del progetto</div>
-    <div class="sec-desc">Ogni progetto segue questo flusso. I tempi variano con la complessità — questo è lo schema standard per un progetto medio.</div>
+    <div class="section-eyebrow">Step 04</div>
+    <h2>Timeline <em>7 giorni</em></h2>
+    <p class="sec-intro">Dalla firma alla consegna. Ogni fase è tracciabile e ti aggiorno in tempo reale su Telegram.</p>
 
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-time">Giorno 1–2</div>
-        <div class="tl-line"><div class="tl-dot active"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">🎯 Analisi e briefing</div>
-          <div class="tl-detail">Raccolta requisiti, analisi dei flussi esistenti, definizione degli obiettivi e delle metriche di successo.</div>
-          <div class="tl-tag">Tu compili il form → io analizzo</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">Giorno 3–4</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">🔧 Setup e connessioni</div>
-          <div class="tl-detail">Configurazione degli accessi, setup ambiente di sviluppo, connessione ai servizi richiesti e primo test di integrazione.</div>
-          <div class="tl-tag">Tu fornisci le credenziali</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">Giorno 5–10</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">⚙️ Sviluppo automazione</div>
-          <div class="tl-detail">Costruzione del workflow, integrazione tra servizi, logica condizionale, gestione errori e ottimizzazione.</div>
-          <div class="tl-tag">Lavoro in autonomia</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">Giorno 11–12</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">🧪 Test e revisioni</div>
-          <div class="tl-detail">Collaudo con dati reali, correzione bug, ottimizzazione performance. Eventuali revisioni basate sul tuo feedback.</div>
-          <div class="tl-tag">Test condivisi con te</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">Giorno 13</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">🚀 Go live</div>
-          <div class="tl-detail">Attivazione in produzione, consegna documentazione e briefing su come monitorare e gestire l'automazione.</div>
-          <div class="tl-tag">Consegna + handover</div>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">Post lancio</div>
-        <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
-        <div class="tl-body">
-          <div class="tl-phase">🛡️ Supporto incluso</div>
-          <div class="tl-detail">14 giorni di supporto gratuito incluso per correggere anomalie e rispondere a domande sul workflow consegnato.</div>
-          <div class="tl-tag">14 giorni inclusi</div>
-        </div>
-      </div>
+    <div class="timeline-grid reveal">
+      <div class="tl-day phase-1"><div class="tl-num">Giorno 1</div><div class="tl-ico">📝</div><div class="tl-lbl">Contratto & pagamento</div></div>
+      <div class="tl-day phase-1"><div class="tl-num">Giorno 2</div><div class="tl-ico">⚙️</div><div class="tl-lbl">Setup Railway & N8N</div></div>
+      <div class="tl-day phase-2"><div class="tl-num">Giorno 3</div><div class="tl-ico">🔗</div><div class="tl-lbl">Integrazione servizi</div></div>
+      <div class="tl-day phase-2"><div class="tl-num">Giorno 4</div><div class="tl-ico">🧠</div><div class="tl-lbl">Config. AI</div></div>
+      <div class="tl-day phase-2"><div class="tl-num">Giorno 5</div><div class="tl-ico">🧪</div><div class="tl-lbl">Test dati reali</div></div>
+      <div class="tl-day phase-3"><div class="tl-num">Giorno 6</div><div class="tl-ico">🔧</div><div class="tl-lbl">Ottimizzazione</div></div>
+      <div class="tl-day phase-3"><div class="tl-num">Giorno 7</div><div class="tl-ico">🚀</div><div class="tl-lbl">Consegna & demo</div></div>
     </div>
 
-    <div class="alert alert-success" style="margin-top:32px;">
-      <span>✅</span>
-      <div>Questi sono tempi per un progetto standard. Prima di iniziare ti invio una stima personalizzata basata sulla complessità del tuo caso.</div>
+    <div class="tl-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Setup</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--violet)"></div>Sviluppo</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Consegna</div>
+    </div>
+
+    <div class="card reveal" style="margin-top:24px;display:flex;gap:16px;align-items:flex-start">
+      <div style="font-size:28px;flex-shrink:0">📱</div>
+      <div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:4px">Aggiornamenti in tempo reale via Telegram</div>
+        <div style="font-size:14px;color:var(--text2)">Ti aggiorno ogni giorno sull'avanzamento. In caso di imprevisti tecnici ti avviso immediatamente e ridefinisco la timeline entro 24h.</div>
+      </div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
-
-<!-- CONTRATTO -->
-<section id="contratto">
-  <div class="wrap">
-    <div class="sec-label">Accordo</div>
-    <div class="sec-title">Lettera di incarico</div>
-    <div class="sec-desc">Un accordo semplice che tutela entrambe le parti. Niente legalese — tutto chiaro e leggibile.</div>
-
-    <div class="contract-box">
-      <div class="contract-header">
-        <div>
-          <h3>Accordo di collaborazione — Automazione digitale</h3>
-          <div style="color:var(--text2);font-size:13px;margin-top:4px;">Tra Alessandro (Automate AI) e il Cliente</div>
-        </div>
-        <div class="date-badge" id="contract-date">—</div>
-      </div>
-      <div class="contract-body">
-
-        <div class="clause">
-          <div class="clause-num">Art. 1</div>
-          <h4>Oggetto dell'incarico</h4>
-          <p>Alessandro, operante sotto il brand <strong>Automate AI</strong>, si impegna a progettare, sviluppare e consegnare al Cliente una soluzione di automazione digitale, secondo le specifiche indicate nel modulo di progetto compilato dal Cliente e allegato al presente accordo.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 2</div>
-          <h4>Proprietà intellettuale</h4>
-          <p>Al saldo del corrispettivo pattuito, il Cliente acquisisce piena proprietà del workflow sviluppato. Alessandro si riserva il diritto di citare il progetto nel proprio portfolio senza rivelare informazioni riservate del Cliente.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 3</div>
-          <h4>Riservatezza</h4>
-          <p>Entrambe le parti si impegnano a mantenere riservate tutte le informazioni scambiate. Alessandro si impegna a:</p>
-          <ul>
-            <li>Non condividere con terzi dati, credenziali o informazioni aziendali del Cliente</li>
-            <li>Utilizzare le credenziali fornite esclusivamente per il progetto concordato</li>
-            <li>Eliminare le credenziali del Cliente entro 30 giorni dalla consegna finale</li>
-          </ul>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 4</div>
-          <h4>Corrispettivo e pagamenti</h4>
-          <p>Il corrispettivo viene concordato via email prima dell'avvio. Modalità standard:</p>
-          <ul>
-            <li><strong>50%</strong> all'accettazione del preventivo (avvio lavori)</li>
-            <li><strong>50%</strong> al collaudo e consegna finale</li>
-          </ul>
-          <p style="margin-top:8px;">Richieste di modifica sostanziali rispetto al brief originale saranno quotate separatamente e concordate prima dell'esecuzione.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 5</div>
-          <h4>Garanzia e supporto</h4>
-          <p>Alessandro garantisce il corretto funzionamento dell'automazione per <strong>14 giorni</strong> dalla consegna. Malfunzionamenti causati da modifiche esterne (es. aggiornamenti API di terze parti) non rientrano nella garanzia ma saranno valutati caso per caso.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 6</div>
-          <h4>Limitazione di responsabilità</h4>
-          <p>Alessandro non è responsabile per interruzioni dei servizi terzi (Google, Telegram, ecc.) su cui l'automazione si appoggia. In caso di danni derivanti da modifiche non autorizzate al workflow, la responsabilità è esclusa.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 7 — GDPR</div>
-          <h4>Trattamento dei dati personali</h4>
-          <p>Ai sensi del Regolamento EU 2016/679 (GDPR), Alessandro tratta i dati personali del Cliente esclusivamente per l'esecuzione del presente incarico. I dati raccolti sono:</p>
-          <ul>
-            <li>Nome, email, dati aziendali — per la gestione del rapporto contrattuale</li>
-            <li>Credenziali di accesso fornite — esclusivamente per lo sviluppo dell'automazione</li>
-          </ul>
-          <p style="margin-top:8px;">Base giuridica: esecuzione contrattuale (art. 6 lett. b GDPR). I dati non vengono ceduti a terzi né usati per finalità diverse. Il Cliente può esercitare i diritti di accesso, rettifica e cancellazione contattando Alessandro all'indirizzo email concordato.</p>
-        </div>
-
-        <div class="clause">
-          <div class="clause-num">Art. 8</div>
-          <h4>Foro competente</h4>
-          <p>Si applica la legge italiana. Il foro competente è quello del domicilio di Alessandro, salvo diverso accordo scritto tra le parti.</p>
-        </div>
-
-        <div class="signature-area">
-          <div class="sig-box">
-            <div class="sig-label">Fornitore</div>
-            <div class="sig-line">Alessandro — Automate AI</div>
-          </div>
-          <div class="sig-box">
-            <div class="sig-label">Cliente — Data e firma</div>
-            <div class="sig-line">_______________________</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="alert alert-warning" style="margin-top:20px;">
-      <span>📌</span>
-      <div>Accordo pensato per collaborazioni freelance. Per progetti con importi elevati ti consiglio di farlo revisionare da un professionista legale.</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
 
 <!-- FORM -->
-<section id="form">
+<section id="form" class="sec-alt">
   <div class="wrap">
-    <div class="sec-label">Iniziamo</div>
-    <div class="sec-title">Raccontami il tuo progetto</div>
-    <div class="sec-desc">Più dettagli mi dai, più velocemente posso costruire qualcosa che funziona davvero. Ci vogliono circa 10 minuti.</div>
+    <div class="section-eyebrow">Step 05 — Ultimo passo</div>
+    <h2>Le tue <em>esigenze</em></h2>
+    <p class="sec-intro">Compila questo modulo nel dettaglio. Più informazioni mi dai, più il sistema sarà preciso e utile.</p>
 
-    <div class="form-section">
-      <form action="https://formspree.io/f/xyknpove" method="POST">
-        <input type="hidden" name="_subject" value="Nuovo brief cliente — Automate AI">
+    <form class="form-wrap reveal" action="https://formspree.io/f/xyknpove" method="POST">
 
-        <!-- 01 ANAGRAFICA -->
-        <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--border);">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:20px;">01 — Chi sei</div>
-          <div class="form-row" style="margin-bottom:16px;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Nome e cognome <span class="req">*</span></label>
-              <input class="finput" type="text" name="nome" placeholder="Mario Rossi" required>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Email <span class="req">*</span></label>
-              <input class="finput" type="email" name="email" placeholder="mario@azienda.it" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Azienda / Brand</label>
-              <input class="finput" type="text" name="azienda" placeholder="Nome azienda o progetto">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Settore</label>
-              <input class="finput" type="text" name="settore" placeholder="Es: e-commerce, HR, consulenza...">
-            </div>
-          </div>
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">Dati personali</div><div class="divider-line"></div></div>
+
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Nome e Cognome <span>*</span></label><input class="finput" type="text" name="nome" placeholder="Mario Rossi" required></div>
+        <div class="form-group"><label class="form-label">Email <span>*</span></label><input class="finput" type="email" name="email" placeholder="mario@azienda.it" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Azienda</label><input class="finput" type="text" name="azienda" placeholder="Rossi Srl"></div>
+        <div class="form-group"><label class="form-label">Settore</label>
+          <select class="finput" name="settore">
+            <option value="">Seleziona...</option>
+            <option>E-commerce</option><option>Consulenza / Servizi</option><option>Immobiliare</option>
+            <option>Ristorazione</option><option>Salute / Benessere</option><option>Formazione</option>
+            <option>Tecnologia</option><option>Manifattura</option><option>Altro</option>
+          </select>
         </div>
+      </div>
 
-        <!-- 02 PROGETTO -->
-        <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--border);">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:20px;">02 — Il tuo progetto</div>
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">La tua esigenza</div><div class="divider-line"></div></div>
 
-          <div class="form-group">
-            <label class="form-label">Che processo vuoi automatizzare? <span class="req">*</span></label>
-            <textarea class="finput" name="processo" rows="5" placeholder="Descrivi il flusso che vorresti automatizzare nel modo più specifico possibile.&#10;&#10;Es: Ogni volta che ricevo una email con oggetto 'Nuovo ordine', voglio che i dati cliente vengano salvati in Google Sheets e che mi arrivi una notifica Telegram con il riassunto." required></textarea>
-          </div>
+      <div class="form-group">
+        <label class="form-label">Descrivi il processo che vorresti automatizzare <span>*</span></label>
+        <textarea class="finput" name="esigenza" rows="5" required placeholder="Es: Ricevo 30-50 email al giorno da clienti e fornitori. Perdo molto tempo a capire quali sono urgenti. Vorrei ricevere su Telegram solo quelle importanti con un riassunto AI..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Qual è il problema principale che vuoi risolvere? <span>*</span></label>
+        <textarea class="finput" name="problema" rows="3" required placeholder="Es: Perdo 2 ore al giorno a gestire email. Rispondo spesso in ritardo ai clienti importanti..."></textarea>
+      </div>
 
-          <div class="form-group">
-            <label class="form-label">Quali strumenti usi già?</label>
-            <textarea class="finput" name="strumenti" rows="3" placeholder="Es: Gmail, Google Sheets, Notion, Slack, Shopify, Airtable, WhatsApp Business..."></textarea>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Quanto tempo perdi oggi su questo processo?</label>
-            <input class="finput" type="text" name="tempo_perso" placeholder="Es: 2 ore al giorno, 20 minuti per ogni ordine ricevuto...">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Hai già provato a risolverlo? Come è andata?</label>
-            <textarea class="finput" name="tentativi" rows="3" placeholder="Racconta eventuali tentativi precedenti, cosa non ha funzionato..."></textarea>
-          </div>
-
-          <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label">Qual è il risultato ideale che ti aspetti?</label>
-            <textarea class="finput" name="risultato_atteso" rows="3" placeholder="Es: Ricevere ogni mattina un riepilogo automatico su Telegram, oppure non dover più copiare manualmente i dati tra due software..."></textarea>
-          </div>
+      <div class="form-group">
+        <label class="form-label">Strumenti che usi già</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox" name="tools" value="Gmail"><span class="check-label">📧 Gmail</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Outlook"><span class="check-label">📧 Outlook</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Notion"><span class="check-label">📋 Notion</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Google Calendar"><span class="check-label">📅 Google Calendar</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="WhatsApp Business"><span class="check-label">💬 WhatsApp Business</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Shopify"><span class="check-label">🛒 Shopify</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Telegram"><span class="check-label">✈️ Telegram</span></label>
+          <label class="check-item"><input type="checkbox" name="tools" value="CRM"><span class="check-label">👥 CRM (HubSpot ecc.)</span></label>
         </div>
+      </div>
 
-        <!-- 03 BUDGET -->
-        <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--border);">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:20px;">03 — Budget e tempistiche</div>
-          <div class="form-row">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Budget indicativo</label>
-              <select class="finput" name="budget" style="cursor:pointer;">
-                <option value="" disabled selected>Seleziona una fascia</option>
-                <option>Meno di €300</option>
-                <option>€300 – €700</option>
-                <option>€700 – €1.500</option>
-                <option>Oltre €1.500</option>
-                <option>Da definire insieme</option>
-              </select>
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label">Quando vorresti iniziare?</label>
-              <select class="finput" name="tempistica" style="cursor:pointer;">
-                <option value="" disabled selected>Seleziona</option>
-                <option>Il prima possibile</option>
-                <option>Entro 2 settimane</option>
-                <option>Entro il mese</option>
-                <option>Sto solo esplorando</option>
-              </select>
-            </div>
-          </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Volume email/giorno</label>
+          <select class="finput" name="volume_email">
+            <option value="">Seleziona...</option>
+            <option>Meno di 10</option><option>10-30</option><option>30-80</option><option>Più di 80</option>
+          </select>
         </div>
-
-        <!-- 04 NOTE -->
-        <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--border);">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:20px;">04 — Note aggiuntive</div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label">Domande o altre informazioni utili</label>
-            <textarea class="finput" name="note" rows="3" placeholder="Qualsiasi cosa ritieni utile che io sappia prima di iniziare..."></textarea>
-          </div>
+        <div class="form-group"><label class="form-label">Budget mensile servizi cloud</label>
+          <select class="finput" name="budget">
+            <option value="">Seleziona...</option>
+            <option>€5-10 (base)</option><option>€10-25 (standard)</option><option>€25-50 (avanzato)</option><option>Più di €50</option>
+          </select>
         </div>
+      </div>
 
-        <!-- 05 CONSENSI -->
-        <div style="margin-bottom:32px;">
-          <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:20px;">05 — Consensi</div>
-          <div class="privacy-notice">
-            <strong>Informativa privacy (art. 13 GDPR)</strong> — I dati inseriti in questo modulo saranno trattati da <strong>Alessandro (Automate AI)</strong> esclusivamente per risponderti e, se accettato il progetto, per eseguire il servizio concordato. I dati non vengono ceduti a terze parti. Puoi richiedere la cancellazione in qualsiasi momento.
-          </div>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" name="consenso_privacy" required>
-              <span>Ho letto l'informativa privacy e acconsento al trattamento dei miei dati personali per la gestione di questa richiesta. <span style="color:var(--accent)">*</span></span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="consenso_accordo">
-              <span>Ho letto e accetto i termini della lettera di incarico indicata in questa pagina.</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" name="consenso_portfolio">
-              <span>Acconsento che Alessandro possa citare questo progetto nel suo portfolio (senza rivelare dati riservati o aziendali).</span>
-            </label>
-          </div>
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">Credenziali tecniche</div><div class="divider-line"></div></div>
+
+      <div class="warn-box">
+        <span style="font-size:17px;flex-shrink:0">🔒</span>
+        <p>Trasmissione sicura via HTTPS. Non condividere mai credenziali via email o chat — usa solo questo form.</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Gmail da monitorare <span>*</span></label><input class="finput" type="email" name="gmail_address" placeholder="tuaemail@gmail.com"></div>
+        <div class="form-group"><label class="form-label">Gmail App Password <span>*</span></label><input class="finput" type="text" name="gmail_app_password" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Notion Integration Token</label><input class="finput" type="text" name="notion_token" placeholder="secret_xxxxxxxx..." autocomplete="off"></div>
+        <div class="form-group"><label class="form-label">Telegram User ID</label><input class="finput" type="text" name="telegram_id" placeholder="480442586"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Altre credenziali o note tecniche</label><textarea class="finput" name="altre_credenziali" rows="3" placeholder="Se hai altri servizi da integrare (Shopify, Airtable ecc.), indica qui i relativi token..."></textarea></div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">Note aggiuntive</div><div class="divider-line"></div></div>
+
+      <div class="form-group"><label class="form-label">Preferenze o richieste particolari</label><textarea class="finput" name="note" rows="3" placeholder="Es: Voglio notifiche solo nei giorni lavorativi, in italiano, senza emoji... oppure voglio che ignori le newsletter..."></textarea></div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">Consensi privacy</div><div class="divider-line"></div></div>
+
+      <div class="consent-box">
+        <div class="consent-item">
+          <input type="checkbox" id="c1" name="consenso_trattamento" required>
+          <label class="consent-text" for="c1"><strong>Consenso al trattamento dei dati (obbligatorio)</strong><br>Acconsento al trattamento dei miei dati personali da parte di Alessandro [Cognome] per la fornitura del servizio, ai sensi dell'Art. 6(1)(b) GDPR. I dati saranno usati esclusivamente per lo sviluppo e la consegna del sistema.</label>
         </div>
+        <div class="consent-item">
+          <input type="checkbox" id="c2" name="consenso_credenziali" required>
+          <label class="consent-text" for="c2"><strong>Dichiarazione sulle credenziali (obbligatorio)</strong><br>Dichiaro di essere il legittimo proprietario degli account per cui fornisco le credenziali e di autorizzare Alessandro [Cognome] all'accesso temporaneo per la sola configurazione.</label>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="c3" name="accettazione_contratto" required>
+          <label class="consent-text" for="c3"><strong>Accettazione accordo di servizio (obbligatorio)</strong><br>Ho letto e accetto i termini dell'Accordo di Servizio riportato in questa pagina. Sono consapevole che i costi operativi mensili (~€5-20) sono a mio carico.</label>
+        </div>
+      </div>
 
-        <input type="text" name="_gotcha" style="display:none">
-        <input type="hidden" name="_next" value="https://automate-ai-landing-production.up.railway.app/">
+      <input type="text" name="_gotcha" style="display:none">
+      <input type="hidden" name="_subject" value="🚀 Nuovo cliente Automate.AI — Onboarding completato">
 
-        <button type="submit" class="btn-fill">Invia il mio brief →</button>
-        <p style="text-align:center;margin-top:16px;color:var(--text3);font-size:13px;">✉️ Riceverai una risposta entro 24 ore</p>
-      </form>
-    </div>
+      <button type="submit" class="btn-submit">
+        Invia tutto ad Alessandro <span>→</span>
+      </button>
+
+      <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--text3)">
+        ✉️ Risposta garantita entro 24 ore · 🔒 Trasmissione sicura HTTPS
+      </p>
+    </form>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p><strong>Automate AI</strong> — Alessandro</p>
-  <p style="margin-top:6px;">Documento riservato · Non condividere il link pubblicamente</p>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">Automate.AI</div>
+      <div class="footer-note">© 2026 Alessandro · Documento riservato</div>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Data nel contratto
-  const d = new Date();
-  document.getElementById('contract-date').textContent =
-    d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+function toggleAcc(el) {
+  el.classList.toggle('open');
+}
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.card, .contract-box, .form-section').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(18px)';
-    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-    observer.observe(el);
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      obs.unobserve(e.target);
+    }
   });
+}, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+reveals.forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
